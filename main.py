@@ -120,7 +120,7 @@ def run_pipeline(dataset_path: str, output_dir: str = "output"):
     # Step 2 — Semantic Recognition Engine (SRE)
     # -----------------------------------------------------------------------
     print_step(2, total_steps, "Semantic Recognition Engine (SRE)")
-    sre = SemanticEngine(kb_path=os.path.join(PROJECT_ROOT, "CAFRE", "BLOCK-2_SEMANTIC_RECOGNITION_ENGINE", "knowledge.json"))
+    sre = SemanticEngine(kb_path=os.path.join(PROJECT_ROOT, "CAFRE", "BLOCK_2_SEMANTIC_RECOGNITION_ENGINE", "knowledge.json"))
     semantics = sre.understand_dataset(df)
     target_col = sre.identify_primary_outcome(semantics)
 
