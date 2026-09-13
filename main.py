@@ -31,6 +31,10 @@ import os
 import time
 import logging
 import warnings
+import textwrap
+
+os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
+os.environ["TQDM_DISABLE"] = "1"
 
 warnings.filterwarnings('ignore')
 
@@ -52,23 +56,36 @@ sys.path.insert(0, PROJECT_ROOT)
 
 import pandas as pd
 
-# SRE — Semantic Recognition Engine (existing implementation)
-sys.path.insert(0, os.path.join(PROJECT_ROOT, "sre_engine"))
-from sre_engine.semantic_engine import SemanticEngine
-from sre_engine.utils import load_dataset
+# BLOCK-2: Semantic Recognition Engine
+SRE_PATH = os.path.join(PROJECT_ROOT, "CAFRE", "BLOCK-2_SEMANTIC_RECOGNITION_ENGINE")
+sys.path.insert(0, SRE_PATH)
+from CAFRE.BLOCK_2_SEMANTIC_RECOGNITION_ENGINE.semantic_engine import SemanticEngine
+from CAFRE.BLOCK_2_SEMANTIC_RECOGNITION_ENGINE.utils import load_dataset
 
-# CAFRE Modules — Phases 1 & 2
-from CAFRE.context.detector import ContextDetector
-from CAFRE.knowledge.leco_generator import CKEGenerator
-from CAFRE.investigation.planner import InvestigationPlanner
-from CAFRE.evidence.mpem import FairnessEvidenceExtractor
-from CAFRE.evidence.ref import RegisteredFairnessEvidences
+# BLOCK-3: Context Detection Engine
+from CAFRE.BLOCK_3_CONTEXT_DETECTION_ENGINE.detector import ContextDetector
 
-# CAFRE Modules — Phase 3
-from CAFRE.reasoning.cre import ContextAwareReasoningEngine
-from CAFRE.feedback.afl import AgenticFeedbackLoop
-from CAFRE.explainability.ferc import FERCExplainabilityEngine
-from CAFRE.mitigation.engine import BiasMitigationEngine
+# BLOCK-4: Context Knowledge Engine
+from CAFRE.BLOCK_4_CONTEXT_KNOWLEDGE_ENGINE.leco_generator import CKEGenerator
+
+# BLOCK-5: Dynamic Investigation Planner
+from CAFRE.BLOCK_5_DYNAMIC_INVESTIGATION_PLANNER.planner import InvestigationPlanner
+
+# BLOCK-6: Fairness Evidence Extractor
+from CAFRE.BLOCK_6_FAIRNESS_EVIDENCE_EXTRACTOR.mpem import FairnessEvidenceExtractor
+from CAFRE.BLOCK_6_FAIRNESS_EVIDENCE_EXTRACTOR.ref import RegisteredFairnessEvidences
+
+# BLOCK-7: Context-Aware Reasoning Engine
+from CAFRE.BLOCK_7_CONTEXT_AWARE_REASONING_ENGINE.cre import ContextAwareReasoningEngine
+
+# BLOCK-8: Agentic Feedback Loop
+from CAFRE.BLOCK_8_AGENTIC_FEEDBACK_LOOP.afl import AgenticFeedbackLoop
+
+# BLOCK-9: FERC Explainability Engine
+from CAFRE.BLOCK_9_FERC_EXPLAINABILITY_ENGINE.ferc import FERCExplainabilityEngine
+
+# BLOCK-10: Bias Mitigation Engine
+from CAFRE.BLOCK_10_BIAS_MITIGATION_ENGINE.engine import BiasMitigationEngine
 
 
 def print_section(title: str, width: int = 70):
@@ -82,18 +99,11 @@ def print_step(step_num: int, total_steps: int, label: str):
     print("-" * 60)
 
 
-def main():
+def run_pipeline(dataset_path: str, output_dir: str = "output"):
     print_section("CAFRE — Context-Aware Fairness Reasoning Engine", width=70)
     print("  Domain-Aware AI Bias Detection & Explainability Framework")
     print("=" * 70)
 
-    if len(sys.argv) < 2:
-        print("\nUsage: python main.py <path_to_dataset.csv>")
-        print("Example: python main.py data/biased_dataset_train.csv")
-        sys.exit(1)
-
-    dataset_path = sys.argv[1]
-    output_dir = "output"
     total_steps = 11
     pipeline_start = time.time()
 
@@ -110,7 +120,7 @@ def main():
     # Step 2 — Semantic Recognition Engine (SRE)
     # -----------------------------------------------------------------------
     print_step(2, total_steps, "Semantic Recognition Engine (SRE)")
-    sre = SemanticEngine(kb_path=os.path.join(PROJECT_ROOT, "sre_engine", "knowledge.json"))
+    sre = SemanticEngine(kb_path=os.path.join(PROJECT_ROOT, "CAFRE", "BLOCK-2_SEMANTIC_RECOGNITION_ENGINE", "knowledge.json"))
     semantics = sre.understand_dataset(df)
     target_col = sre.identify_primary_outcome(semantics)
 
@@ -324,7 +334,8 @@ def main():
             print(f"\n  Feature: {rec['feature']}  (Priority: {rec['priority_level']})")
             for s in rec["recs"]:
                 print(f"    [{s['type']}] {s['strategy_name']}  - Priority: {s['priority']}")
-                print(f"    Rationale: {s['suitability_rationale'][:120]}...")
+                wrapped_rationale = textwrap.fill(s['suitability_rationale'], width=90, initial_indent="    Rationale: ", subsequent_indent="               ")
+                print(wrapped_rationale)
 
     if afl_actions:
         print()
@@ -352,4 +363,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) < 2:
+        print("\nUsage: python main.py <path_to_dataset.csv>")
+        print("Example: python main.py data/biased_dataset_train.csv")
+        sys.exit(1)
+    run_pipeline(dataset_path=sys.argv[1])

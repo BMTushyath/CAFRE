@@ -78,6 +78,13 @@ class RegisteredFairnessEvidences:
 
         temp_df = df.copy()
         
+        # Binarize continuous targets dynamically to > median
+        if pd.api.types.is_numeric_dtype(temp_df[target_col]) and temp_df[target_col].nunique() > 20:
+            median_val = temp_df[target_col].median()
+            logger.info(f"Target '{target_col}' is continuous. Binarizing at median: > {median_val}")
+            temp_df[target_col] = (temp_df[target_col] > median_val).astype(int)
+            positive_outcome = 1
+        
         # Auto-detect positive outcome if not specified
         if positive_outcome is None:
             positive_outcome = self.detect_positive_outcome(temp_df[target_col])
