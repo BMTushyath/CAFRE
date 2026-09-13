@@ -1,0 +1,82 @@
+{
+  "concepts": {
+    "gender": {
+      "role": "Feature",
+      "category": "Demographic",
+      "is_sensitive": true,
+      "aliases": ["sex", "gender", "male", "female", "man", "woman"]
+    },
+    "race": {
+      "role": "Feature",
+      "category": "Demographic",
+      "is_sensitive": true,
+      "aliases": ["race", "ethnicity", "skin_color", "origin", "nationality"]
+    },
+    "age": {
+      "role": "Feature",
+      "category": "Demographic",
+      "is_sensitive": true,
+      "aliases": ["age", "dob", "birth_year", "date_of_birth"]
+    },
+    "education": {
+      "role": "Feature",
+      "category": "Educational",
+      "is_sensitive": false,
+      "aliases": ["education", "degree", "university", "college", "schooling", "education_level"]
+    },
+    "experience": {
+      "role": "Feature",
+      "category": "Employment",
+      "is_sensitive": false,
+      "aliases": ["experience", "years_experience", "tenure", "seniority", "work_history"]
+    },
+    "score": {
+      "role": "Feature",
+      "category": "Performance",
+      "is_sensitive": false,
+      "aliases": ["score", "rating", "grade", "skill_fit_score", "evaluation"]
+    },
+    "job_category": {
+      "role": "Feature",
+      "category": "Employment",
+      "is_sensitive": false,
+      "aliases": ["job", "role", "position", "title", "job_category", "department"]
+    },
+    "identifier": {
+      "role": "Identifier",
+      "category": "Administrative",
+      "is_sensitive": false,
+      "aliases": ["id", "uuid", "key", "index", "candidate_id", "user_id", "email", "phone"]
+    },
+    "decision_outcome": {
+      "role": "Outcome",
+      "category": "Decision",
+      "is_sensitive": false,
+      "aliases": ["decision", "final_decision", "outcome", "hired", "approved", "rejected", "status", "label"]
+    },
+    "income_outcome": {
+      "role": "Outcome",
+      "category": "Financial",
+      "is_sensitive": false,
+      "aliases": ["income", "salary", "wage", "compensation"]
+    },
+    "ai_prediction": {
+      "role": "Decision",
+      "category": "Algorithmic",
+      "is_sensitive": false,
+      "aliases": ["ai_decision", "ai_score", "model_output", "prediction"]
+    },
+    "human_prediction": {
+      "role": "Decision",
+      "category": "Human",
+      "is_sensitive": false,
+      "aliases": ["human_decision", "human_score", "manual_review", "interviewer_score"]
+    },
+    "divergence": {
+      "role": "Derived",
+      "category": "Administrative",
+      "is_sensitive": false,
+      "aliases": ["divergence", "difference", "agreement", "delta", "score_divergence", "decision_agreement"]
+    }
+  }
+}

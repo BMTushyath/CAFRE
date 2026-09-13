@@ -1,0 +1,21 @@
+{
+    "domain": "Hiring",
+    "protected_attributes": [
+        "gender",
+        "race",
+        "age"
+    ],
+    "historical_biases": [
+        "Gender disparity in technical roles",
+        "Ageism in entry level recruiting"
+    ],
+    "known_proxies": {
+        "gender": [
+            "name",
+            "prefix"
+        ],
+        "race": [
+            "zipcode"
+        ]
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "domain": "Education",
+    "protected_attributes": [
+        "race",
+        "gender",
+        "income"
+    ],
+    "historical_biases": [
+        "Resource disparity in high-minority schools",
+        "Standardized testing bias"
+    ],
+    "known_proxies": {
+        "income": [
+            "zipcode",
+            "school_district"
+        ]
+    }
+}

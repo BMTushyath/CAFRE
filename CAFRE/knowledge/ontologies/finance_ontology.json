@@ -1,0 +1,22 @@
+{
+    "domain": "Finance",
+    "protected_attributes": [
+        "age",
+        "gender",
+        "race"
+    ],
+    "historical_biases": [
+        "Redlining in credit decisions",
+        "Gender gaps in loan approval rates"
+    ],
+    "known_proxies": {
+        "race": [
+            "zipcode",
+            "neighborhood"
+        ],
+        "gender": [
+            "prefix",
+            "title"
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "domain": "Insurance",
+    "protected_attributes": [
+        "age",
+        "gender",
+        "race"
+    ],
+    "historical_biases": [
+        "Higher premiums for minority neighborhoods",
+        "Gender bias in auto insurance"
+    ],
+    "known_proxies": {
+        "race": [
+            "zipcode"
+        ]
+    }
+}

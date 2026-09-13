@@ -1,0 +1,18 @@
+{
+    "domain": "Healthcare",
+    "protected_attributes": [
+        "race",
+        "age",
+        "gender"
+    ],
+    "historical_biases": [
+        "Underdiagnosis in minority populations",
+        "Biased risk assessment scores"
+    ],
+    "known_proxies": {
+        "race": [
+            "zipcode",
+            "income"
+        ]
+    }
+}
